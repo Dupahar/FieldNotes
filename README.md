@@ -109,12 +109,17 @@ open it and follow **Setting up Switch**: add a server on **This computer**, and
 1. In Telegram, talk to [@BotFather](https://t.me/BotFather): `/newbot`, save the token.
 2. **Before adding the bot anywhere:** `/mybots` → your bot → *Bot Settings* → *Group Privacy* → **Turn off**.
 3. Switch Console → your server → **Messaging apps** → **Connect** → Telegram → paste token and bot username.
-4. Create a Telegram group (e.g. "Sales Floor"), add your bot. The group becomes a Switch room.
+4. Create a Telegram group (e.g. "Sales Floor"), add your bot **and make it an administrator**,
+   then send any message. The group becomes a Switch room.
+   > Making the bot admin can upgrade the group to a *supergroup* with a new chat id. Switch then
+   > creates a fresh room for it: use that one (the bot answering `!list-agents` tells you it's live).
 
 ### 4. Create the three agents from the template
 Switch Console → **Templates** → import `switch/fieldnotes.template.yaml`. Pick your Telegram
-room as **Sales room** and this folder as **FieldNotes folder**. Console creates `fn-scribe`,
-`fn-analyst` and `fn-dealdesk` and adds them to the room.
+room as **Sales room**, this folder as **FieldNotes folder**, and the machine (e.g. *This computer*)
+as **Runs on**. Console creates `fn-scribe`, `fn-analyst` and `fn-dealdesk` as managed Claude Code
+agents on that machine and adds them to the room. If they land in the wrong room, add them from
+Telegram with `/invite_agent @fn-scribe` (and the other two).
 
 ### 5. Make recordings go to the scribe automatically
 In the Telegram group, type:
@@ -149,6 +154,18 @@ Recordings are transcribed on the machine running the agents; no audio goes to a
 API. `data/` is git-ignored. Analysis is done by the Claude Code agent you already use, so
 transcript text goes through your existing Claude Code account. Always tell people when you
 record a conversation and get their consent.
+
+## Things we hit while building (and how we got past them)
+
+- **Windows + the template `location:` field** sends agents down Console's local-session path,
+  which is unsupported on Windows ("SDK sessions require a POSIX SSH execution host"). Using a
+  `machine:` param instead runs them as managed agents on the PC's controller, which works.
+- **Remote hosts on Windows:** Console expands `~` in `IdentityFile` with `$HOME`, which Windows
+  doesn't set, so the key isn't found ("SSH agent socket not found"). Write the full path, e.g.
+  `IdentityFile C:/Users/you/.ssh/id_ed25519`.
+- **Remote hosts need Node 22.13+** (the docs say 18+); Ubuntu 24.04 ships 18.
+- **Telegram supergroup migration** (triggered by promoting the bot to admin) leaves the
+  original room pointing at a dead chat id while a new room is auto-created for the new id.
 
 ## Limits and what's next
 

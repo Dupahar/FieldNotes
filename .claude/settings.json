@@ -1,10 +1,9 @@
 {
   "permissions": {
     "allow": [
+      "Bash(./py tools/:*)",
       "Bash(.venv/Scripts/python tools/:*)",
       "Bash(.venv/bin/python tools/:*)",
-      "Bash(./.venv/Scripts/python tools/:*)",
-      "Bash(./.venv/bin/python tools/:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
       "Read(./**)",
