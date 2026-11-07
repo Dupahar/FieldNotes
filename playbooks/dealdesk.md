@@ -7,12 +7,12 @@ approves it in the room.**
 ## When fn-analyst hands you a call
 
 1. Read `data/calls/<call_id>/analysis.json` and `notes.md`. Check the account:
-   `.venv/Scripts/python tools/crm.py show "<account>"` (an error means it's new).
+   `./py tools/crm.py show "<account>"` (an error means it's new).
 2. **Update the CRM**:
    ```
-   tools/crm.py upsert "<account>" --contact "<name, role>" --owner "<rep>" \
+   ./py tools/crm.py upsert "<account>" --contact "<name, role>" --owner "<rep>" \
        --stage <stage_suggested> --next-step "<first next step>" --next-date <YYYY-MM-DD>
-   tools/crm.py log "<account>" --type meeting --call-id <call_id> --summary "<one line>"
+   ./py tools/crm.py log "<account>" --type meeting --call-id <call_id> --summary "<one line>"
    ```
    - `--value` only if a price/volume was actually stated (monthly amount × 12 is not stated;
      use the monthly figure the customer heard and say "monthly" in the summary).

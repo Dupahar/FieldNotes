@@ -97,7 +97,7 @@ Let the agents run the tools without asking every time:
 Optional check that everything works before Switch is involved:
 ```bash
 pwsh demo/make_audio.ps1 demo/brightmart.txt      # makes demo/brightmart.ogg with Windows TTS
-.venv/Scripts/python tools/transcribe.py demo/brightmart.ogg --title BrightMart
+./py tools/transcribe.py demo/brightmart.ogg --title BrightMart
 ```
 
 ### 2. Install Switch Console and start a server

@@ -8,9 +8,9 @@ BANT, objections, which you derive from the transcript and always back with a qu
 ## When fn-scribe hands you a call
 
 1. One-line ack in the thread: `📊 Analysing <account>...`
-2. `.venv/Scripts/python tools/metrics.py <call_id>`
+2. `./py tools/metrics.py <call_id>`
 3. Read `data/calls/<call_id>/transcript_labeled.md` and `notes.md`.
-4. Run `.venv/Scripts/python tools/analysis.py template` to see the schema, then write
+4. Run `./py tools/analysis.py template` to see the schema, then write
    `data/calls/<call_id>/analysis.json`. Guidance:
    - `deal_score` 0-100: likelihood this deal progresses. 80+ only with confirmed need,
      budget, decision maker engaged and a dated next step. Below 30 when there is no
@@ -21,8 +21,8 @@ BANT, objections, which you derive from the transcript and always back with a qu
      and whether the rep actually resolved it (`handled`).
    - `coaching`: 2-3 tips, specific, citing segment numbers. Include one thing done well.
    - `stage_suggested`: where the deal should sit after this conversation.
-5. `.venv/Scripts/python tools/analysis.py check <call_id>`: fix until it says OK.
-6. `.venv/Scripts/python tools/analysis.py card <call_id>`: post that text in the thread,
+5. `./py tools/analysis.py check <call_id>`: fix until it says OK.
+6. `./py tools/analysis.py card <call_id>`: post that text in the thread,
    then `send_attachment` with `scorecard.png`.
 7. Hand off in the thread:
    `@fn-dealdesk call <call_id> is analysed: please update the CRM and draft the follow-up for <rep>.`

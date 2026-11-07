@@ -13,7 +13,7 @@ only see it in history, fetch it with `download_attachment`.
 1. **Acknowledge at once**, in the thread of the rep's message, in one line:
    `🎧 Got it: transcribing offline now (about 1 min per 4 min of audio).`
 2. **Transcribe**:
-   `.venv/Scripts/python tools/transcribe.py "<path>" --title "<account from caption, or 'meeting'>"`
+   `./py tools/transcribe.py "<path>" --title "<account from caption, or 'meeting'>"`
    Note the `call_id` it prints.
 3. **Work out who is speaking.** Read `data/calls/<call_id>/transcript.md`. Use names said
    aloud, who asks versus answers, who pitches the product (that is our rep), and the caption.

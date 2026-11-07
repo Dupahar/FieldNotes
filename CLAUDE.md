@@ -13,10 +13,10 @@ and follow it. Re-read it if someone says it changed.
 
 ## Running the tools
 
-All tools are Python scripts in `tools/`, run from this directory with the project's venv:
+All tools are Python scripts in `tools/`, run from this directory through the `./py`
+launcher, which picks the project's venv on any OS:
 
-- Windows (Git Bash): `.venv/Scripts/python tools/<tool>.py ...`
-- macOS / Linux: `.venv/bin/python tools/<tool>.py ...`
+    ./py tools/<tool>.py ...
 
 Every tool has `--help`. They print what they wrote; read their output rather than assuming.
 
