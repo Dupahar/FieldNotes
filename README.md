@@ -14,7 +14,7 @@ Three AI agents transcribe, analyse, update the CRM and draft the follow-up, rig
 ![Whisper](https://img.shields.io/badge/transcription-offline%20Whisper-555)
 ![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 
-### ▶ [Watch the 2-minute demo](https://youtu.be/x07z0l2V8cU)
+### ▶ [Watch the 2-minute demo](https://youtu.be/x07z0l2V8cU) · 📝 [Read the build story](https://builder.aws.com/content/3LmUm1UZ5lqjvz6clAMOJCEVGbK/i-built-an-ai-sales-coach-that-lives-in-a-telegram-group)
 
 <a href="https://youtu.be/x07z0l2V8cU"><img src="https://img.youtube.com/vi/x07z0l2V8cU/maxresdefault.jpg" alt="FieldNotes demo video" width="860"></a>
 
