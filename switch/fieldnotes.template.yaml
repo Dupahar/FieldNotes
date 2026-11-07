@@ -24,7 +24,8 @@ params:
   workspace:
     type: directory
     label: FieldNotes folder
-    description: Absolute path to your clone of the fieldnotes repo (all three agents work there)
+    description: Absolute path to your clone of the fieldnotes repo on the machine the agents run on (all three agents work there)
+    default: "/home/mahaj/fieldnotes"
   provider:
     type: provider
     description: Which coding agent backs the three agents
@@ -32,9 +33,9 @@ params:
     input: advanced
   location:
     type: location
-    description: The machine the agents run on (needs Python + ffmpeg, see README)
-    default: local
-    input: advanced
+    label: Runs on
+    description: The machine the agents run on. On Windows this must be an SSH host such as WSL (see README).
+    default: [wsl, $first]
 
 agents:
   - name: fn-scribe
