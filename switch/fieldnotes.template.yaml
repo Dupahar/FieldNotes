@@ -24,26 +24,21 @@ params:
   workspace:
     type: directory
     label: FieldNotes folder
-    description: Absolute path to your clone of the fieldnotes repo on the machine the agents run on (all three agents work there)
-    default: "/home/mahaj/fieldnotes"
-  provider:
-    type: provider
-    description: Which coding agent backs the three agents
-    default: [claude, codex, opencode]
-    input: advanced
-  location:
-    type: location
+    description: Absolute path to your clone of the fieldnotes repo on that machine (all three agents work there)
+    default: "C:/Users/mahaj/Downloads/Switch/fieldnotes"
+  machine:
+    type: machine
     label: Runs on
-    description: The machine the agents run on. On Windows this must be an SSH host such as WSL (see README).
-    default: [wsl, $first]
+    description: The machine that runs the agents (needs Python + ffmpeg, see README)
+    default: [$first]
 
 agents:
   - name: fn-scribe
     display_name: FieldNotes Scribe
     description: Turns recordings of in-person conversations into transcripts and meeting notes
     addressing: anyone
-    provider: "{provider}"
-    location: "{location}"
+    provider: claude
+    machine: "{machine}"
     directory: "{workspace}"
     join: ["{room}"]
     instructions: |
@@ -60,8 +55,8 @@ agents:
     display_name: FieldNotes Analyst
     description: Scores conversations, coaches reps, answers team analytics questions
     addressing: anyone
-    provider: "{provider}"
-    location: "{location}"
+    provider: claude
+    machine: "{machine}"
     directory: "{workspace}"
     join: ["{room}"]
     instructions: |
@@ -76,8 +71,8 @@ agents:
     display_name: FieldNotes Deal Desk
     description: Keeps the CRM current and drafts follow-ups, sending only on human approval
     addressing: anyone
-    provider: "{provider}"
-    location: "{location}"
+    provider: claude
+    machine: "{machine}"
     directory: "{workspace}"
     join: ["{room}"]
     instructions: |
