@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+# Recordings, transcripts and the CRM are customer data: never commit them.
+data/
+demo/*.wav
+.claude/settings.local.json

@@ -1,0 +1,87 @@
+# FieldNotes: an AI notetaker + sales coach for conversations that happen OFFLINE.
+#
+# Reps record in-person meetings on their phone and drop the recording into the team's
+# chat room. Three agents pick it up in the room, with the team watching and approving:
+#
+#   fn-scribe    transcribes offline (Whisper), labels speakers, writes meeting notes
+#   fn-analyst   measures talk ratio / questions, scores the deal, coaches the rep,
+#                answers team-wide analytics questions
+#   fn-dealdesk  updates the CRM, drafts the follow-up email, waits for a person to approve
+#
+# Telegram can't create chats, so this template creates the agents and has them JOIN a room
+# that already exists: add your Switch bot to a Telegram group first (it becomes a room),
+# then pick that room in the form. Works the same with Slack, Discord or Mattermost rooms.
+#
+# All three share one working directory: your clone of the fieldnotes repo, where the
+# tools, playbooks and data live.
+version: 1
+
+params:
+  room:
+    type: room
+    label: Sales room
+    description: The room for your sales team (e.g. the Telegram group you added the Switch bot to)
+  workspace:
+    type: directory
+    label: FieldNotes folder
+    description: Absolute path to your clone of the fieldnotes repo (all three agents work there)
+  provider:
+    type: provider
+    description: Which coding agent backs the three agents
+    default: [claude, codex, opencode]
+    input: advanced
+  location:
+    type: location
+    description: The machine the agents run on (needs Python + ffmpeg, see README)
+    default: local
+    input: advanced
+
+agents:
+  - name: fn-scribe
+    display_name: FieldNotes Scribe
+    description: Turns recordings of in-person conversations into transcripts and meeting notes
+    addressing: anyone
+    provider: "{provider}"
+    location: "{location}"
+    directory: "{workspace}"
+    join: ["{room}"]
+    instructions: |
+      You are fn-scribe, the notetaker of a sales team. Reps record their in-person
+      meetings on their phones and send the recording into this room; you transcribe it
+      offline, work out who said what, write meeting notes, and hand the call to
+      @fn-analyst. Your full playbook is playbooks/scribe.md in your working directory:
+      read it, and CLAUDE.md, before your first task.
+      You may be the room's assigned agent, which means you also receive messages that
+      address nobody. If such a message is not a recording and not a question for you
+      (for example an "approve" meant for fn-dealdesk), stay silent.
+
+  - name: fn-analyst
+    display_name: FieldNotes Analyst
+    description: Scores conversations, coaches reps, answers team analytics questions
+    addressing: anyone
+    provider: "{provider}"
+    location: "{location}"
+    directory: "{workspace}"
+    join: ["{room}"]
+    instructions: |
+      You are fn-analyst, the conversation-intelligence analyst and sales coach of a sales
+      team. When fn-scribe hands you a call you measure it, score it, coach the rep and hand
+      it to @fn-dealdesk. When people ask about performance, objections or trends across
+      calls, you answer from the data with charts. Your full playbook is
+      playbooks/analyst.md in your working directory: read it, and CLAUDE.md, before your
+      first task.
+
+  - name: fn-dealdesk
+    display_name: FieldNotes Deal Desk
+    description: Keeps the CRM current and drafts follow-ups, sending only on human approval
+    addressing: anyone
+    provider: "{provider}"
+    location: "{location}"
+    directory: "{workspace}"
+    join: ["{room}"]
+    instructions: |
+      You are fn-dealdesk. After fn-analyst scores a call you update the team's CRM and
+      draft the follow-up email, then ask the rep to approve it in the room. Nothing goes to
+      a customer without an explicit human "approve". You also answer pipeline questions.
+      Your full playbook is playbooks/dealdesk.md in your working directory: read it, and
+      CLAUDE.md, before your first task.
